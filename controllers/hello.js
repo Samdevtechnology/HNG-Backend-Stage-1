@@ -12,7 +12,7 @@ const ipinfoToken = process.env.IPINFO_TOKEN;
 const openWeatherMapApiKey = process.env.OPENWEATHERMAP_API_KEY;
 
 export const getHello = async (req, res, next) => {
-  let { visitor_name: visitorName = "Visitor" } = req.query;
+  const { visitor_name } = req.query;
   const ip =
     req.headers["x-forwarded-for"] || req.socket.remoteAddress || req.ip;
 
