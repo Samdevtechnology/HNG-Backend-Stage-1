@@ -8,7 +8,16 @@ const openWeatherMapApiKey = process.env.OPENWEATHERMAP_API_KEY;
 
 export const getHello = async (req, res, next) => {
   const { visitor_name } = req.query;
-  const ip = req.ip;
+  const ip =
+    req.headers["x-forwarded-for"] || req.socket.remoteAddress || req.ip;
+
+  const ipinfoResponse = await axios.get(
+    `https://ipinfo.io/${ip}?token=${ipinfoToken}`
+  );
+  const locationData = ipinfoResponse.data;
+  console.log("🚀 ~ getHello ~ locationData:", locationData);
+  const city = locationData.city;
+  console.log("🚀 ~ getHello ~ city:", city);
 
   res.send(`Your current Ip address is IP address id ${ip}`);
 
