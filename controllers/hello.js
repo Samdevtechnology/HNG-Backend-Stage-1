@@ -45,18 +45,18 @@ export const getHello = async (req, res, next) => {
     const weatherData = weatherResponse.data;
     const temp = weatherData.main.temp;
 
-    if (req.accepts("json")) {
-      res.json({
-        client_ip: ip, // The IP address of the requester
-        location: `${city}`, // The city of the requester
-        greeting: `Hello, ${visitorName}!, the temperature is ${temp} degrees Celsius in ${city}`,
-      });
-    } else {
+    if (req.accepts("html")) {
       res.render("hello", {
         ip,
         visitorName,
         city,
         temp,
+      });
+    } else {
+      res.json({
+        client_ip: ip, // The IP address of the requester
+        location: `${city}`, // The city of the requester
+        greeting: `Hello, ${visitorName}!, the temperature is ${temp} degrees Celsius in ${city}`,
       });
     }
   } catch (error) {
